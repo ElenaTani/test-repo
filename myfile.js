@@ -1,12 +1,12 @@
 'use strict';
 
-let x : Number = 10;
-let y = 2;
-let sum = x+y;
-let diff = x-y;
-let product = x * y;
-let quotient = x / y;
-let expon = y ** x;
+const x = 10;
+const y = 2;
+const sum = x+y;
+const diff = x-y;
+const product = x * y;
+const quotient = x / y;
+const expon = y ** x;
 console.log(x);
 console.log(y);
 console.log(sum);
