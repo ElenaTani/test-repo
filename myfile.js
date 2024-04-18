@@ -1,16 +1,25 @@
 'use strict';
 
-const x = 10;
-const y = 2;
-const sum = x+y;
-const diff = x-y;
-const product = x * y;
-const quotient = x / y;
-const expon = y ** x;
-console.log(x);
-console.log(y);
-console.log(sum);
-console.log(diff);
-console.log(product);
-console.log(quotient);
-console.log(expon);
+// let value = prompt();
+// if (isNaN(value)) {
+//     console.log('Помилка: введіть число');
+// }
+//  for (let i=2; i <= value; i++) {
+//     if (!(i % 2)){
+//         console.log(i);
+//     }
+//  }
+
+let value = prompt();
+if (isNaN(value)) {
+    console.log('Помилка: введіть число');
+}
+let i = 2;
+while (i <= value) {
+    if (!(i % 2)){
+        console.log(i);
+    }
+    i++;
+}
+
+
