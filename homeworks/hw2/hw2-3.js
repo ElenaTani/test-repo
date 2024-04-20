@@ -1,6 +1,6 @@
 "use strict";
 
-let string = "42559125";
+const string = "42559125";
 let result = "";
 for (let i = 0; i <= string.length - 1; i++) {
   if (string[i] < 5) {
