@@ -5,9 +5,9 @@ function someFunction(...names) {
 }
 
 function slower(func, seconds) {
-    return function (...names) {
+    return function (...parameters) {
         console.log(`Chill out, you will get you result in ${seconds} seconds`);
-        setTimeout(func, seconds*1000, ...names)
+        setTimeout(func, seconds*1000, ...parameters)
     }
 }
 
