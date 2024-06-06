@@ -1,33 +1,57 @@
 'use strict';
 
-const turnOffButton = document.querySelector('#turnOffButton');
-const lastTurnOffElement = document.querySelector('#message');
+document.addEventListener("DOMContentLoaded", () => {
+    const state = {
+        getBackground() {   
+           if (this.getButtonText() === "Turn off") {
+            return "white";
+           }
+           return "grey";
+        },
+        getButtonText() {
+            return localStorage.getItem("stateOfButton") || "Turn off";
+        },
+        getTextMessage() {
+            return localStorage.getItem("lastMessage") || "";
+        },
+        switchState() {
+            if (this.getButtonText() === "Turn off") {
+                localStorage.setItem("stateOfButton", "Turn on");
+                localStorage.setItem("lastMessage", `Last turn off: ${this.getDate()}`);
+            } else {
+                localStorage.setItem("stateOfButton", "Turn off");  
+                localStorage.setItem("lastMessage", `Last turn on: ${this.getDate()}`);
+            }
+        },
+        getDate() { 
+            const d = new Date();
+            return d.getDate()  + "-" + (d.getMonth()+1) + "-" + d.getFullYear() + " " + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
+        }
+    };
 
-turnOffButton.innerHTML = localStorage.getItem('stateOfButton') || "Turn off";
-lastTurnOffElement.innerHTML = localStorage.getItem('lastMessage') || "";
+    const dom = {
+        switchButton: document.querySelector("#turnOffButton"),
+        setBackground(color) {
+            document.body.style.backgroundColor = color;
+        },
+        setButtonText(text) {
+            this.switchButton.innerHTML = text;
+        },
+        setTextMessage(text) {
+            document.querySelector("#message").innerHTML = text;
+        }
+    };
+    
+    const displayState = () => {
+        dom.setBackground(state.getBackground());
+        dom.setButtonText(state.getButtonText());
+        dom.setTextMessage(state.getTextMessage());
+    }
 
-if (turnOffButton.innerHTML === "Turn off") {
-    document.body.style.backgroundColor = "white";
-}
-if (turnOffButton.innerHTML === "Turn on") {
-    document.body.style.backgroundColor = "grey";
-}
+    displayState();
 
-function updateStatus(){
-    const d = new Date();
-    const datestring = d.getDate()  + "-" + (d.getMonth()+1) + "-" + d.getFullYear() + " " + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
-    if (turnOffButton.innerHTML === "Turn off") {
-        turnOffButton.innerHTML = "Turn on";
-        document.body.style.backgroundColor = "grey";
-        lastTurnOffElement.innerHTML = `Last turn off: ${datestring}`;
-       
-    } else {
-        turnOffButton.innerHTML = "Turn off";
-        document.body.style.backgroundColor = "white";
-        lastTurnOffElement.innerHTML = `Last turn on: ${datestring}`;
-    }  
-    localStorage.setItem('stateOfButton', turnOffButton.innerHTML);
-    localStorage.setItem('lastMessage', lastTurnOffElement.innerHTML); 
-}
-
-turnOffButton.addEventListener('click', updateStatus);
+    dom.switchButton.addEventListener("click", () => {
+        state.switchState();
+        displayState();
+    });    
+});
